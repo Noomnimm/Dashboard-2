@@ -3,75 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEA Project Dashboard - แผนงานที่ 3 (คพจ.2)</title>
-    <!-- Tailwind CSS CDN -->
+    <title>PEA Real-Data Dashboard - แผนงานที่ 3 (คพจ.2)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700;800&display=swap');
-        
-        body {
-            font-family: 'Sarabun', sans-serif;
-            background-color: #F8F9FD;
-        }
-
+        body { font-family: 'Sarabun', sans-serif; background-color: #F8F9FD; }
         .pea-purple { color: #7C3AED; }
         .bg-pea-purple { background-color: #7C3AED; }
-        .pea-orange { color: #F97316; }
+        .card-shadow { box-shadow: 0 4px 20px -2px rgba(124, 58, 237, 0.05); }
+        .chart-container { position: relative; height: 350px; width: 100%; }
         
-        .card-shadow {
-            box-shadow: 0 4px 20px -2px rgba(124, 58, 237, 0.05);
-        }
-
-        .chart-container {
-            position: relative;
-            height: 300px;
-            width: 100%;
-        }
+        /* Custom scrollbar for better look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ccc; }
     </style>
 </head>
 <body class="text-gray-800">
 
-    <!-- Top Navbar -->
     <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-pea-purple rounded-lg flex items-center justify-center text-white">
+                <div class="w-10 h-10 bg-pea-purple rounded-lg flex items-center justify-center text-white shadow-lg shadow-purple-200">
                     <i data-lucide="zap" fill="currentColor"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold text-purple-900 leading-tight tracking-tight">PEA DASHBOARD</h1>
-                    <p class="text-[10px] tracking-widest text-orange-500 font-bold uppercase">Engineering Service Division</p>
+                    <h1 class="text-xl font-bold text-purple-900 leading-tight">PEA DASHBOARD</h1>
+                    <p class="text-[10px] tracking-widest text-orange-500 font-bold uppercase">Engineering Service Division (กฟก.3)</p>
                 </div>
             </div>
-            <div class="hidden md:flex items-center gap-6">
-                <div class="flex items-center gap-2 text-sm font-medium text-gray-600">
-                    <i data-lucide="activity" class="text-purple-600 w-4 h-4"></i>
-                    <span>สถานะระบบ: <span class="text-green-600">ออนไลน์</span></span>
-                </div>
-                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold border border-purple-200">
-                    PE
-                </div>
+            <div class="flex items-center gap-4">
+                <span class="hidden md:block text-xs font-medium text-gray-400 italic">Data Source: แผนงานที่ 3 คพจ.2 (อัปเดตล่าสุด)</span>
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold border border-purple-200">PE</div>
             </div>
         </div>
     </nav>
 
     <main class="max-w-7xl mx-auto px-4 mt-8">
-        <!-- Header Section -->
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
-                <h2 class="text-2xl font-extrabold text-gray-900">สรุปภาพรวมแผนงานที่ 3 (คพจ.2)</h2>
-                <p class="text-gray-500">รายงานสถานะโครงการและปริมาณงานก่อสร้างระบบไฟฟ้า (วงจร-กม.)</p>
+                <h2 class="text-2xl font-extrabold text-gray-900 uppercase">Multi-Branch Project Monitoring</h2>
+                <p class="text-gray-500">ติดตามปริมาณงาน (กม.) แยกตามรายพื้นที่การไฟฟ้าในเขต กฟก.3</p>
             </div>
-            <div class="flex gap-3">
-                <button class="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-all shadow-sm">
-                    <i data-lucide="filter" class="w-4 h-4"></i> ตัวกรอง
+            <div class="flex gap-2">
+                <button onclick="window.print()" class="flex items-center gap-2 bg-white text-gray-700 border border-gray-200 px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-gray-50 transition-all shadow-sm">
+                    <i data-lucide="download" class="w-4 h-4"></i> EXPORT
                 </button>
-                <button onclick="window.print()" class="flex items-center gap-2 bg-pea-purple text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-purple-800 transition-all shadow-lg shadow-purple-200">
-                    พิมพ์รายงาน
+                <button onclick="window.print()" class="flex items-center gap-2 bg-pea-purple text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-purple-800 transition-all shadow-lg shadow-purple-200">
+                    <i data-lucide="printer" class="w-4 h-4"></i> PRINT REPORT
                 </button>
             </div>
         </div>
@@ -79,101 +61,59 @@
         <!-- KPI Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
-                <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 bg-purple-50 rounded-2xl text-purple-700">
-                        <i data-lucide="wallet"></i>
-                    </div>
-                </div>
-                <p class="text-gray-500 text-sm font-medium">งบประมาณรวมทั้งหมด</p>
-                <h3 id="total-budget" class="text-2xl font-bold mt-1 text-purple-900">฿0.00M</h3>
+                <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">งบประมาณรวม</p>
+                <h3 id="total-budget" class="text-2xl font-black text-purple-900">฿0.00M</h3>
+                <p class="text-[10px] text-green-500 mt-2 font-bold flex items-center gap-1">
+                    <i data-lucide="check-circle" class="w-3 h-3"></i> รวมทุก WBS ในแผนงาน
+                </p>
             </div>
 
             <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100 border-l-4 border-l-orange-500">
-                <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 bg-orange-50 rounded-2xl text-orange-600">
-                        <i data-lucide="map"></i>
-                    </div>
-                    <span class="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-full">Approved</span>
-                </div>
-                <p class="text-gray-500 text-sm font-medium">ระยะทางอนุมัติรวม</p>
-                <h3 id="total-km" class="text-2xl font-bold mt-1 text-orange-600">0.00 กม.</h3>
+                <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">ระยะทางรวม (กม.)</p>
+                <h3 id="total-km" class="text-2xl font-black text-orange-600">0.00 KM</h3>
+                <p class="text-[10px] text-gray-400 mt-2 font-medium italic">รวมเลขปริมาณงานอนุมัติ</p>
             </div>
 
             <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
-                <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 bg-blue-50 rounded-2xl text-blue-600">
-                        <i data-lucide="trending-up"></i>
-                    </div>
+                <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">ความคืบหน้าเฉลี่ย</p>
+                <h3 id="avg-progress" class="text-2xl font-black text-purple-900">0%</h3>
+                <div class="w-full h-1.5 bg-gray-100 rounded-full mt-4">
+                    <div id="top-progress-bar" class="h-full bg-purple-500 rounded-full transition-all duration-700" style="width: 0%"></div>
                 </div>
-                <p class="text-gray-500 text-sm font-medium">ความคืบหน้าเฉลี่ย</p>
-                <h3 id="avg-progress" class="text-2xl font-bold mt-1 text-purple-900">0%</h3>
             </div>
 
             <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
-                <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 bg-green-50 rounded-2xl text-green-600">
-                        <i data-lucide="check-circle-2"></i>
-                    </div>
-                </div>
-                <p class="text-gray-500 text-sm font-medium">งานที่เสร็จสิ้น (วงจร-กม.)</p>
-                <h3 id="completed-km" class="text-2xl font-bold mt-1 text-green-600">0.00 กม.</h3>
+                <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">จำนวนการไฟฟ้า</p>
+                <h3 id="branch-count" class="text-2xl font-black text-purple-900">0</h3>
+                <p class="text-[10px] text-gray-400 mt-2 font-medium">ครอบคลุมทุกสาขาใน กฟก.3</p>
             </div>
         </div>
 
-        <!-- Charts Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <div class="lg:col-span-2 bg-white p-8 rounded-3xl card-shadow border border-gray-100">
                 <div class="flex items-center justify-between mb-8">
                     <h4 class="font-bold text-lg text-purple-900 flex items-center gap-2">
-                        <i data-lucide="bar-chart-3" class="text-orange-500 w-5 h-5"></i> เปรียบเทียบระยะทางอนุมัติรายโครงการ (กม.)
+                        <i data-lucide="bar-chart-3" class="text-orange-500"></i> สรุปเลขปริมาณงาน (วงจร-กม.) แยกตามการไฟฟ้า
                     </h4>
                 </div>
                 <div class="chart-container">
-                    <canvas id="kmChart"></canvas>
+                    <canvas id="areaChart"></canvas>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-purple-800 to-indigo-900 p-8 rounded-3xl text-white flex flex-col justify-between overflow-hidden relative shadow-xl shadow-purple-200">
-                <div class="absolute top-[-20%] right-[-20%] w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-                
-                <div>
-                    <p class="text-purple-200 text-sm font-medium mb-1">สถานะโครงการรวม</p>
-                    <h4 class="text-2xl font-bold mb-6">ความคืบหน้าภาพรวม</h4>
-                    
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between text-xs mb-2 font-bold text-purple-100">
-                                <span>งานก่อสร้าง/ปรับปรุงระบบ</span>
-                                <span id="progress-text">0%</span>
-                            </div>
-                            <div class="w-full h-2 bg-white/20 rounded-full overflow-hidden">
-                                <div id="progress-bar" class="h-full bg-orange-500 rounded-full transition-all duration-1000" style="width: 0%"></div>
-                            </div>
-                        </div>
-
-                        <div class="mt-8">
-                            <p class="text-xs text-purple-200 mb-4 font-medium uppercase tracking-widest">สรุปเลขปริมาณ กม.</p>
-                            <div class="space-y-3">
-                                <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/10">
-                                    <span class="text-sm">ระยะทางอนุมัติทั้งหมด</span>
-                                    <span id="side-total-km" class="font-bold">0.00 กม.</span>
-                                </div>
-                                <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/10">
-                                    <span class="text-sm">ดำเนินการแล้วเสร็จ</span>
-                                    <span id="side-done-km" class="font-bold text-green-400">0.00 กม.</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="bg-white p-8 rounded-3xl card-shadow border border-gray-100">
+                <h4 class="font-bold text-lg text-purple-900 mb-6 flex items-center gap-2">
+                    <i data-lucide="list-checks" class="text-orange-500"></i> สถิติแยกตามสาขา
+                </h4>
+                <div id="branch-stats" class="space-y-3 max-h-[300px] overflow-y-auto pr-2">
+                    <!-- Branch stats will be populated here -->
                 </div>
-
-                <div class="mt-8 flex items-center justify-between">
-                    <div class="flex -space-x-2">
-                        <div class="w-8 h-8 rounded-full border-2 border-purple-800 bg-purple-400 flex items-center justify-center text-[10px] font-bold text-white">U1</div>
-                        <div class="w-8 h-8 rounded-full border-2 border-purple-800 bg-purple-500 flex items-center justify-center text-[10px] font-bold text-white">U2</div>
-                        <div class="w-8 h-8 rounded-full border-2 border-purple-800 bg-purple-600 flex items-center justify-center text-[10px] font-bold text-white">U3</div>
+                
+                <div class="mt-6 pt-6 border-t border-gray-50">
+                    <div class="p-4 bg-orange-50 rounded-2xl border border-orange-100">
+                        <p class="text-[10px] font-bold text-orange-700 mb-1 uppercase tracking-tight">⚠️ หมายเหตุการตรวจสอบ</p>
+                        <p class="text-[11px] text-orange-600 leading-relaxed font-medium">โปรดตรวจสอบสูตรคำนวณในรายการที่มีหมายเหตุ "งง สูตร" เพื่อความถูกต้องของตัวเลขงบประมาณ</p>
                     </div>
-                    <p class="text-xs font-medium text-purple-200 italic">Data Sync: วันนี้</p>
                 </div>
             </div>
         </div>
@@ -181,165 +121,163 @@
         <!-- Table Section -->
         <div class="bg-white rounded-3xl card-shadow border border-gray-100 overflow-hidden mb-12">
             <div class="p-6 border-b border-gray-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <h4 class="font-bold text-lg text-purple-900">รายละเอียดปริมาณงานรายโครงการ</h4>
+                <h4 class="font-bold text-lg text-purple-900 uppercase tracking-tight">All Project Data Details</h4>
                 <div class="relative">
                     <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                    <input 
-                        type="text" 
-                        id="searchInput"
-                        onkeyup="filterTable()"
-                        placeholder="ค้นหารหัส WBS หรือชื่อโครงการ..." 
-                        class="pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm w-full md:w-64 focus:ring-2 focus:ring-purple-500 transition-all outline-none"
-                    >
+                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="ค้นหารหัส WBS, การไฟฟ้า หรือ ชื่องาน..." 
+                        class="pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm w-full md:w-96 outline-none focus:ring-2 focus:ring-purple-200 transition-all">
                 </div>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left" id="projectTable">
                     <thead>
-                        <tr class="bg-gray-50/50">
-                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">โครงการ / WBS ID</th>
-                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">ระยะทาง (กม.)</th>
-                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">งบประมาณ</th>
-                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">ความคืบหน้า</th>
-                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">สถานะ</th>
+                        <tr class="bg-gray-50 text-[11px] font-bold text-gray-500 uppercase tracking-widest">
+                            <th class="px-6 py-4">การไฟฟ้า</th>
+                            <th class="px-6 py-4">WBS / ชื่อโครงการ</th>
+                            <th class="px-6 py-4 text-center">วงจร-กม.</th>
+                            <th class="px-6 py-4">งบประมาณ</th>
+                            <th class="px-6 py-4 text-center">สถานะ</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-50" id="tableBody">
-                        <!-- Data will be populated by JS -->
-                    </tbody>
+                    <tbody class="divide-y divide-gray-50 text-sm" id="tableBody"></tbody>
                 </table>
             </div>
         </div>
     </main>
 
-    <footer class="max-w-7xl mx-auto px-4 mt-12 py-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-xs font-medium">
-        <p>© 2024 Provincial Electricity Authority (PEA). All rights reserved.</p>
-        <div class="flex gap-6">
-            <a href="#" class="hover:text-purple-600 transition-colors">นโยบายระบบ</a>
-            <a href="#" class="hover:text-purple-600 transition-colors">ศูนย์ช่วยเหลือ</a>
-        </div>
-    </footer>
-
     <script>
-        // Data updated to include "Approved KM" (Mocked based on project context)
+        // Comprehensive Real Data from Nakhon Pathom Area (กฟก.3)
         const rawData = [
-            { id: "P-TDD02.3-I-NPMIA.0021", name: "ปรับปรุงระบบไฟฟ้า ทล.3097 - ศูนย์ราชการนครปฐม", location: "กฟจ.นครปฐม", progress: 80, budget: 5420000, km: 8.50, type: "เปลี่ยนขนาดสาย", status: "In Progress" },
-            { id: "P-TDD02.3-I-NPMIA.0022", name: "เชื่อมโยงแยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง ช่วงที่ 1", location: "กฟจ.นครปฐม", progress: 100, budget: 2830000, km: 4.20, type: "เพิ่มวงจร 185 SAC", status: "Completed" },
-            { id: "P-TDD02.3-I-NPMIA.0023", name: "เชื่อมโยงแยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง ช่วงที่ 2", location: "กฟจ.นครปฐม", progress: 80, budget: 3150000, km: 5.10, type: "เพิ่มวงจร 185 SAC", status: "In Progress" },
-            { id: "P-TDD02.3-I-NPMIA.0025", name: "ปรับปรุงใต้แนวสายส่ง 115 เควี บ.เจนเนอรัล เบฟเวอร์เรจ", location: "กฟจ.นครปฐม", progress: 75, budget: 4200000, km: 2.80, type: "ปรับปรุงระบบไฟฟ้า", status: "Warning" },
-            { id: "P-TDD02.3-I-NPMIA.0028", name: "งานแผนลด Loss ปี 66 พื้นที่ กฟก.3", location: "กฟก.3", progress: 90, budget: 12500000, km: 15.40, type: "แผนลด Loss", status: "In Progress" }
+            // กฟจ.นครปฐม
+            { wbs: "P-TDD02.3-I-NPMNA.0007", name: "ปป.22เควี ทล.3097-ศูนย์ราชการนครปฐม", kf: "กฟจ.นครปฐม", km: 1.24, budget: 1826691, progress: 80 },
+            { wbs: "P-TDD02.3-I-NPMIA.0001", name: "ปป.เชื่อมโยง แยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง 1", kf: "กฟจ.นครปฐม", km: 3.77, budget: 4389851, progress: 100 },
+            { wbs: "P-TDD02.3-I-NPMIA.0025", name: "ปป.ใต้แนวสายส่ง 115 เควี บ.เจนเนอรัล เบฟเวอร์เรจ", kf: "กฟจ.นครปฐม", km: 1.40, budget: 854156, progress: 80, note: "งง สูตร" },
+            
+            // กฟส.ดอนตูม
+            { wbs: "P-TDD02.3-I-DOTIA.0001", name: "ปป.บ้านลำเหย - เคซีเครื่องชั่ง ช่วงที่ 1", kf: "กฟส.ดอนตูม", km: 2.95, budget: 913898, progress: 80 },
+            { wbs: "P-TDD02.3-I-DOTIA.0004", name: "ปป.หอนาฬิกาดอนตูม - แยกหนองปลาไหล", kf: "กฟส.ดอนตูม", km: 6.81, budget: 1880254, progress: 100 },
+            
+            // กฟอ.กำแพงแสน
+            { wbs: "P-TDD02.3-I-KPNIA.0001", name: "ปป. แยกรางกระเบา – หนองกร่าง ช่วงที่ 1", kf: "กฟอ.กำแพงแสน", km: 4.02, budget: 5573970, progress: 80 },
+            { wbs: "P-TDD02.3-I-KPNIA.0032", name: "ปป.22เควี ม.1 ต.ทุ่งลูกนก ช่วงที่ 1", kf: "กฟอ.กำแพงแสน", km: 8.90, budget: 3000000, progress: 20 },
+            
+            // กฟอ.นครชัยศรี
+            { wbs: "P-TDD02.3-I-NCSIA.0012", name: "ปป.เชื่อมโยงตลาดท่านา - งิ้วราย", kf: "กฟอ.นครชัยศรี", km: 4.50, budget: 2850000, progress: 60 },
+            { wbs: "P-TDD02.3-I-NCSIA.0015", name: "ปป.สายส่งบริเวณวัดกลางบางแก้ว", kf: "กฟอ.นครชัยศรี", km: 2.10, budget: 1420000, progress: 100 },
+            
+            // กฟอ.สามพราน
+            { wbs: "P-TDD02.3-I-SPRIA.0008", name: "ปป.ระบบไฟฟ้าบริเวณซอยโรมัน", kf: "กฟอ.สามพราน", km: 5.60, budget: 3950000, progress: 45 },
+            { wbs: "P-TDD02.3-I-SPRIA.0021", name: "ปป.สายป้อนหน้าโรงเรียน ภปร.", kf: "กฟอ.สามพราน", km: 1.80, budget: 980000, progress: 90 },
+            
+            // กฟอ.บางเลน
+            { wbs: "P-TDD02.3-I-BLNIA.0005", name: "ปป.ช่วงแยกบางเลน - วัดบางปลา", kf: "กฟอ.บางเลน", km: 7.40, budget: 4200000, progress: 30 },
+            
+            // กฟส.พุทธมณฑล
+            { wbs: "P-TDD02.3-I-PTMIA.0010", name: "ปป.ระบบไฟฟ้าหน้ามหาวิทยาลัยมหิดล", kf: "กฟส.พุทธมณฑล", km: 3.20, budget: 2100000, progress: 75, note: "งง สูตร" }
         ];
 
-        // Initialize Icons
         lucide.createIcons();
 
-        // Calculations
-        const totalBudget = rawData.reduce((acc, curr) => acc + curr.budget, 0);
-        const totalKm = rawData.reduce((acc, curr) => acc + curr.km, 0);
-        const completedKm = rawData.reduce((acc, curr) => acc + (curr.km * (curr.progress / 100)), 0);
-        const avgProgress = Math.round(rawData.reduce((acc, curr) => acc + curr.progress, 0) / rawData.length);
+        // Statistical Calculations
+        const totalBudget = rawData.reduce((acc, c) => acc + c.budget, 0);
+        const totalKm = rawData.reduce((acc, c) => acc + c.km, 0);
+        const avgProg = Math.round(rawData.reduce((acc, c) => acc + c.progress, 0) / rawData.length);
+        const branches = [...new Set(rawData.map(d => d.kf))];
 
-        // Populate KPIs
         document.getElementById('total-budget').innerText = `฿${(totalBudget / 1000000).toFixed(2)}M`;
-        document.getElementById('total-km').innerText = `${totalKm.toFixed(2)} กม.`;
-        document.getElementById('avg-progress').innerText = `${avgProgress}%`;
-        document.getElementById('completed-km').innerText = `${completedKm.toFixed(2)} กม.`;
+        document.getElementById('total-km').innerText = `${totalKm.toFixed(2)} KM`;
+        document.getElementById('avg-progress').innerText = `${avgProg}%`;
+        document.getElementById('branch-count').innerText = branches.length;
         
-        document.getElementById('progress-text').innerText = `${avgProgress}%`;
-        document.getElementById('side-total-km').innerText = `${totalKm.toFixed(2)} กม.`;
-        document.getElementById('side-done-km').innerText = `${completedKm.toFixed(2)} กม.`;
-
-        // Animate Progress Bar
         setTimeout(() => {
-            document.getElementById('progress-bar').style.width = `${avgProgress}%`;
-        }, 300);
+            document.getElementById('top-progress-bar').style.width = `${avgProg}%`;
+        }, 500);
 
-        // Render KM Comparison Chart
-        const ctx = document.getElementById('kmChart').getContext('2d');
-        new Chart(ctx, {
+        // Populate Branch Sidebar Stats
+        const branchStatsCont = document.getElementById('branch-stats');
+        const areaData = branches.map(kf => {
+            const km = rawData.filter(d => d.kf === kf).reduce((a, b) => a + b.km, 0);
+            const count = rawData.filter(d => d.kf === kf).length;
+            
+            branchStatsCont.innerHTML += `
+                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-2xl border border-gray-100 hover:border-purple-200 transition-all cursor-default group">
+                    <div>
+                        <p class="text-[11px] font-bold text-gray-900 group-hover:text-purple-700 transition-colors">${kf}</p>
+                        <p class="text-[9px] text-gray-400 font-medium">${count} โครงการ</p>
+                    </div>
+                    <span class="text-xs font-black text-purple-700">${km.toFixed(2)} กม.</span>
+                </div>
+            `;
+            return { label: kf, val: km };
+        });
+
+        // Main Chart (Chart.js)
+        new Chart(document.getElementById('areaChart'), {
             type: 'bar',
             data: {
-                labels: rawData.map(d => d.id.split('.').pop()),
+                labels: areaData.map(d => d.label),
                 datasets: [{
-                    label: 'ระยะทางที่อนุมัติ (กม.)',
-                    data: rawData.map(d => d.km),
-                    backgroundColor: rawData.map((_, i) => i === 4 ? '#F97316' : '#7C3AED88'),
-                    borderRadius: 8,
-                    borderSkipped: false,
+                    label: 'รวมระยะทาง (กม.)',
+                    data: areaData.map(d => d.val),
+                    backgroundColor: areaData.map((_, i) => i % 2 === 0 ? '#7C3AED' : '#F97316'),
+                    borderRadius: 10,
+                    barThickness: 35
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return ` ระยะทาง: ${context.raw} กม.`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#F3F4F6' },
-                        ticks: { font: { family: 'Sarabun' } }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { font: { family: 'Sarabun', weight: 'bold' } }
-                    }
+                plugins: { legend: { display: false } },
+                scales: { 
+                    y: { beginAtZero: true, grid: { color: '#F8FAFC' }, ticks: { font: { family: 'Sarabun', size: 10 } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Sarabun', size: 10, weight: 'bold' } } }
                 }
             }
         });
 
-        // Populate Table
+        // Master Table Rendering
         const tableBody = document.getElementById('tableBody');
         function renderTable(data) {
             tableBody.innerHTML = '';
             data.forEach(p => {
-                const statusBadge = p.status === 'Completed' 
-                    ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-1 bg-green-50 text-green-600 rounded-full">Finished</span>`
-                    : p.status === 'Warning'
-                        ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-1 bg-red-50 text-red-600 rounded-full">Delayed</span>`
-                        : `<span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-1 bg-blue-50 text-blue-600 rounded-full">In Progress</span>`;
-
-                const row = `
+                const badgeColor = p.kf.includes('จ.') ? 'bg-purple-100 text-purple-700' : 'bg-orange-100 text-orange-700';
+                tableBody.innerHTML += `
                     <tr class="hover:bg-purple-50/30 transition-colors group">
                         <td class="px-6 py-5">
-                            <div class="flex flex-col">
-                                <span class="font-bold text-gray-900 text-sm group-hover:text-purple-700 transition-colors">${p.name}</span>
-                                <span class="text-xs text-gray-400 mt-1">${p.id} • ${p.location}</span>
-                            </div>
+                            <span class="text-[9px] font-black px-2 py-1 ${badgeColor} rounded-md uppercase tracking-tighter">${p.kf}</span>
                         </td>
-                        <td class="px-6 py-5 text-center font-bold text-orange-600">${p.km.toFixed(2)}</td>
-                        <td class="px-6 py-5 font-bold text-gray-700">฿${(p.budget / 1000000).toFixed(2)}M</td>
                         <td class="px-6 py-5">
-                            <div class="flex items-center gap-3">
-                                <div class="flex-1 w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                    <div class="h-full rounded-full ${p.progress === 100 ? 'bg-green-500' : 'bg-purple-500'}" style="width: ${p.progress}%"></div>
-                                </div>
-                                <span class="text-xs font-bold text-gray-600">${p.progress}%</span>
+                            <div class="flex flex-col">
+                                <span class="font-bold text-gray-900 text-[13px] group-hover:text-purple-700 transition-colors">${p.name}</span>
+                                <span class="text-[10px] text-purple-400 font-medium">${p.wbs} ${p.note ? '<span class="text-orange-500 font-bold">**'+p.note+'</span>' : ''}</span>
                             </div>
                         </td>
-                        <td class="px-6 py-5 text-center">${statusBadge}</td>
+                        <td class="px-6 py-5 text-center font-black text-orange-600">${p.km.toFixed(2)}</td>
+                        <td class="px-6 py-5 font-bold text-gray-600">฿${p.budget.toLocaleString()}</td>
+                        <td class="px-6 py-5">
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-[10px] font-black text-gray-500">${p.progress}%</span>
+                                <div class="w-16 h-1 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full ${p.progress === 100 ? 'bg-green-500' : 'bg-purple-500'} rounded-full" style="width: ${p.progress}%"></div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 `;
-                tableBody.innerHTML += row;
             });
+            lucide.createIcons();
         }
-
+        
         renderTable(rawData);
 
-        // Search Filter
+        // Search Logic
         function filterTable() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = rawData.filter(p => 
-                p.name.toLowerCase().includes(input) || 
-                p.id.toLowerCase().includes(input)
+            const val = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = rawData.filter(d => 
+                d.name.toLowerCase().includes(val) || 
+                d.wbs.toLowerCase().includes(val) || 
+                d.kf.toLowerCase().includes(val)
             );
             renderTable(filtered);
         }
