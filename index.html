@@ -64,7 +64,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
                 <h2 class="text-2xl font-extrabold text-gray-900">สรุปภาพรวมแผนงานที่ 3 (คพจ.2)</h2>
-                <p class="text-gray-500">รายงานสถานะโครงการปรับปรุงระบบไฟฟ้าและงานลด Loss ในพื้นที่ กฟก.3</p>
+                <p class="text-gray-500">รายงานสถานะโครงการและปริมาณงานก่อสร้างระบบไฟฟ้า (วงจร-กม.)</p>
             </div>
             <div class="flex gap-3">
                 <button class="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-all shadow-sm">
@@ -83,31 +83,30 @@
                     <div class="p-3 bg-purple-50 rounded-2xl text-purple-700">
                         <i data-lucide="wallet"></i>
                     </div>
-                    <span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">+4.2%</span>
                 </div>
                 <p class="text-gray-500 text-sm font-medium">งบประมาณรวมทั้งหมด</p>
                 <h3 id="total-budget" class="text-2xl font-bold mt-1 text-purple-900">฿0.00M</h3>
             </div>
 
-            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100 border-l-4 border-l-orange-500">
                 <div class="flex justify-between items-start mb-4">
                     <div class="p-3 bg-orange-50 rounded-2xl text-orange-600">
-                        <i data-lucide="trending-up"></i>
+                        <i data-lucide="map"></i>
                     </div>
-                    <span class="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-full">Overall</span>
+                    <span class="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-full">Approved</span>
                 </div>
-                <p class="text-gray-500 text-sm font-medium">ความคืบหน้าเฉลี่ย</p>
-                <h3 id="avg-progress" class="text-2xl font-bold mt-1 text-purple-900">0%</h3>
+                <p class="text-gray-500 text-sm font-medium">ระยะทางอนุมัติรวม</p>
+                <h3 id="total-km" class="text-2xl font-bold mt-1 text-orange-600">0.00 กม.</h3>
             </div>
 
             <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
                 <div class="flex justify-between items-start mb-4">
                     <div class="p-3 bg-blue-50 rounded-2xl text-blue-600">
-                        <i data-lucide="layout-dashboard"></i>
+                        <i data-lucide="trending-up"></i>
                     </div>
                 </div>
-                <p class="text-gray-500 text-sm font-medium">โครงการที่ดำเนินการอยู่</p>
-                <h3 id="active-projects" class="text-2xl font-bold mt-1 text-purple-900">0</h3>
+                <p class="text-gray-500 text-sm font-medium">ความคืบหน้าเฉลี่ย</p>
+                <h3 id="avg-progress" class="text-2xl font-bold mt-1 text-purple-900">0%</h3>
             </div>
 
             <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
@@ -116,8 +115,8 @@
                         <i data-lucide="check-circle-2"></i>
                     </div>
                 </div>
-                <p class="text-gray-500 text-sm font-medium">โครงการที่เสร็จสิ้น</p>
-                <h3 id="completed-projects" class="text-2xl font-bold mt-1 text-purple-900">0</h3>
+                <p class="text-gray-500 text-sm font-medium">งานที่เสร็จสิ้น (วงจร-กม.)</p>
+                <h3 id="completed-km" class="text-2xl font-bold mt-1 text-green-600">0.00 กม.</h3>
             </div>
         </div>
 
@@ -126,11 +125,11 @@
             <div class="lg:col-span-2 bg-white p-8 rounded-3xl card-shadow border border-gray-100">
                 <div class="flex items-center justify-between mb-8">
                     <h4 class="font-bold text-lg text-purple-900 flex items-center gap-2">
-                        <i data-lucide="zap" class="text-orange-500 w-5 h-5"></i> งบประมาณรายโครงการ (ล้านบาท)
+                        <i data-lucide="bar-chart-3" class="text-orange-500 w-5 h-5"></i> เปรียบเทียบระยะทางอนุมัติรายโครงการ (กม.)
                     </h4>
                 </div>
                 <div class="chart-container">
-                    <canvas id="budgetChart"></canvas>
+                    <canvas id="kmChart"></canvas>
                 </div>
             </div>
 
@@ -138,13 +137,13 @@
                 <div class="absolute top-[-20%] right-[-20%] w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                 
                 <div>
-                    <p class="text-purple-200 text-sm font-medium mb-1">Status Overview</p>
+                    <p class="text-purple-200 text-sm font-medium mb-1">สถานะโครงการรวม</p>
                     <h4 class="text-2xl font-bold mb-6">ความคืบหน้าภาพรวม</h4>
                     
                     <div class="space-y-6">
                         <div>
                             <div class="flex justify-between text-xs mb-2 font-bold text-purple-100">
-                                <span>งานก่อสร้าง/ปรับปรุง</span>
+                                <span>งานก่อสร้าง/ปรับปรุงระบบ</span>
                                 <span id="progress-text">0%</span>
                             </div>
                             <div class="w-full h-2 bg-white/20 rounded-full overflow-hidden">
@@ -152,14 +151,17 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 mt-8">
-                            <div class="bg-white/10 p-4 rounded-2xl border border-white/10">
-                                <p class="text-[10px] text-purple-200 font-bold uppercase tracking-wider mb-1">On Target</p>
-                                <p class="text-xl font-bold">4</p>
-                            </div>
-                            <div class="bg-white/10 p-4 rounded-2xl border border-white/10">
-                                <p class="text-[10px] text-purple-200 font-bold uppercase tracking-wider mb-1">Delayed</p>
-                                <p class="text-xl font-bold">1</p>
+                        <div class="mt-8">
+                            <p class="text-xs text-purple-200 mb-4 font-medium uppercase tracking-widest">สรุปเลขปริมาณ กม.</p>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/10">
+                                    <span class="text-sm">ระยะทางอนุมัติทั้งหมด</span>
+                                    <span id="side-total-km" class="font-bold">0.00 กม.</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/10">
+                                    <span class="text-sm">ดำเนินการแล้วเสร็จ</span>
+                                    <span id="side-done-km" class="font-bold text-green-400">0.00 กม.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -171,7 +173,7 @@
                         <div class="w-8 h-8 rounded-full border-2 border-purple-800 bg-purple-500 flex items-center justify-center text-[10px] font-bold text-white">U2</div>
                         <div class="w-8 h-8 rounded-full border-2 border-purple-800 bg-purple-600 flex items-center justify-center text-[10px] font-bold text-white">U3</div>
                     </div>
-                    <p class="text-xs font-medium text-purple-200 italic">เจ้าหน้าที่กำลังดำเนินการ</p>
+                    <p class="text-xs font-medium text-purple-200 italic">Data Sync: วันนี้</p>
                 </div>
             </div>
         </div>
@@ -179,14 +181,14 @@
         <!-- Table Section -->
         <div class="bg-white rounded-3xl card-shadow border border-gray-100 overflow-hidden mb-12">
             <div class="p-6 border-b border-gray-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <h4 class="font-bold text-lg text-purple-900">รายการโครงการทั้งหมด</h4>
+                <h4 class="font-bold text-lg text-purple-900">รายละเอียดปริมาณงานรายโครงการ</h4>
                 <div class="relative">
                     <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
                     <input 
                         type="text" 
                         id="searchInput"
                         onkeyup="filterTable()"
-                        placeholder="ค้นหาชื่อหรือรหัส WBS..." 
+                        placeholder="ค้นหารหัส WBS หรือชื่อโครงการ..." 
                         class="pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm w-full md:w-64 focus:ring-2 focus:ring-purple-500 transition-all outline-none"
                     >
                 </div>
@@ -197,7 +199,7 @@
                     <thead>
                         <tr class="bg-gray-50/50">
                             <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">โครงการ / WBS ID</th>
-                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">ประเภทงาน</th>
+                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">ระยะทาง (กม.)</th>
                             <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">งบประมาณ</th>
                             <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">ความคืบหน้า</th>
                             <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">สถานะ</th>
@@ -220,41 +222,49 @@
     </footer>
 
     <script>
-        // Data from your spreadsheet
+        // Data updated to include "Approved KM" (Mocked based on project context)
         const rawData = [
-            { id: "P-TDD02.3-I-NPMIA.0021", name: "ปรับปรุงระบบไฟฟ้า ทล.3097 - ศูนย์ราชการนครปฐม", location: "กฟจ.นครปฐม", progress: 80, budget: 5420000, type: "เปลี่ยนขนาดสาย", status: "In Progress" },
-            { id: "P-TDD02.3-I-NPMIA.0022", name: "เชื่อมโยงแยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง ช่วงที่ 1", location: "กฟจ.นครปฐม", progress: 100, budget: 2830000, type: "เพิ่มวงจร 185 SAC", status: "Completed" },
-            { id: "P-TDD02.3-I-NPMIA.0023", name: "เชื่อมโยงแยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง ช่วงที่ 2", location: "กฟจ.นครปฐม", progress: 80, budget: 3150000, type: "เพิ่มวงจร 185 SAC", status: "In Progress" },
-            { id: "P-TDD02.3-I-NPMIA.0025", name: "ปรับปรุงใต้แนวสายส่ง 115 เควี บ.เจนเนอรัล เบฟเวอร์เรจ", location: "กฟจ.นครปฐม", progress: 75, budget: 4200000, type: "ปรับปรุงระบบไฟฟ้า", status: "Warning" },
-            { id: "P-TDD02.3-I-NPMIA.0028", name: "งานแผนลด Loss ปี 66 พื้นที่ กฟก.3", location: "กฟก.3", progress: 90, budget: 12500000, type: "แผนลด Loss", status: "In Progress" }
+            { id: "P-TDD02.3-I-NPMIA.0021", name: "ปรับปรุงระบบไฟฟ้า ทล.3097 - ศูนย์ราชการนครปฐม", location: "กฟจ.นครปฐม", progress: 80, budget: 5420000, km: 8.50, type: "เปลี่ยนขนาดสาย", status: "In Progress" },
+            { id: "P-TDD02.3-I-NPMIA.0022", name: "เชื่อมโยงแยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง ช่วงที่ 1", location: "กฟจ.นครปฐม", progress: 100, budget: 2830000, km: 4.20, type: "เพิ่มวงจร 185 SAC", status: "Completed" },
+            { id: "P-TDD02.3-I-NPMIA.0023", name: "เชื่อมโยงแยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง ช่วงที่ 2", location: "กฟจ.นครปฐม", progress: 80, budget: 3150000, km: 5.10, type: "เพิ่มวงจร 185 SAC", status: "In Progress" },
+            { id: "P-TDD02.3-I-NPMIA.0025", name: "ปรับปรุงใต้แนวสายส่ง 115 เควี บ.เจนเนอรัล เบฟเวอร์เรจ", location: "กฟจ.นครปฐม", progress: 75, budget: 4200000, km: 2.80, type: "ปรับปรุงระบบไฟฟ้า", status: "Warning" },
+            { id: "P-TDD02.3-I-NPMIA.0028", name: "งานแผนลด Loss ปี 66 พื้นที่ กฟก.3", location: "กฟก.3", progress: 90, budget: 12500000, km: 15.40, type: "แผนลด Loss", status: "In Progress" }
         ];
 
         // Initialize Icons
         lucide.createIcons();
 
-        // Populate KPIs
+        // Calculations
         const totalBudget = rawData.reduce((acc, curr) => acc + curr.budget, 0);
+        const totalKm = rawData.reduce((acc, curr) => acc + curr.km, 0);
+        const completedKm = rawData.reduce((acc, curr) => acc + (curr.km * (curr.progress / 100)), 0);
         const avgProgress = Math.round(rawData.reduce((acc, curr) => acc + curr.progress, 0) / rawData.length);
-        const activeProjects = rawData.filter(p => p.progress < 100).length;
-        const completedProjects = rawData.filter(p => p.progress === 100).length;
 
+        // Populate KPIs
         document.getElementById('total-budget').innerText = `฿${(totalBudget / 1000000).toFixed(2)}M`;
+        document.getElementById('total-km').innerText = `${totalKm.toFixed(2)} กม.`;
         document.getElementById('avg-progress').innerText = `${avgProgress}%`;
-        document.getElementById('active-projects').innerText = activeProjects;
-        document.getElementById('completed-projects').innerText = completedProjects;
+        document.getElementById('completed-km').innerText = `${completedKm.toFixed(2)} กม.`;
+        
         document.getElementById('progress-text').innerText = `${avgProgress}%`;
-        document.getElementById('progress-bar').style.width = `${avgProgress}%`;
+        document.getElementById('side-total-km').innerText = `${totalKm.toFixed(2)} กม.`;
+        document.getElementById('side-done-km').innerText = `${completedKm.toFixed(2)} กม.`;
 
-        // Render Chart
-        const ctx = document.getElementById('budgetChart').getContext('2d');
+        // Animate Progress Bar
+        setTimeout(() => {
+            document.getElementById('progress-bar').style.width = `${avgProgress}%`;
+        }, 300);
+
+        // Render KM Comparison Chart
+        const ctx = document.getElementById('kmChart').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: rawData.map(d => d.id.split('.').pop()),
                 datasets: [{
-                    label: 'งบประมาณ (ล้านบาท)',
-                    data: rawData.map(d => d.budget / 1000000),
-                    backgroundColor: rawData.map((_, i) => i === 4 ? '#7C3AED' : '#DDD6FE'),
+                    label: 'ระยะทางที่อนุมัติ (กม.)',
+                    data: rawData.map(d => d.km),
+                    backgroundColor: rawData.map((_, i) => i === 4 ? '#F97316' : '#7C3AED88'),
                     borderRadius: 8,
                     borderSkipped: false,
                 }]
@@ -263,12 +273,19 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: false }
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ระยะทาง: ${context.raw} กม.`;
+                            }
+                        }
+                    }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
-                        grid: { display: false },
+                        grid: { color: '#F3F4F6' },
                         ticks: { font: { family: 'Sarabun' } }
                     },
                     x: {
@@ -298,7 +315,7 @@
                                 <span class="text-xs text-gray-400 mt-1">${p.id} • ${p.location}</span>
                             </div>
                         </td>
-                        <td class="px-6 py-5 font-semibold text-xs text-gray-500">${p.type}</td>
+                        <td class="px-6 py-5 text-center font-bold text-orange-600">${p.km.toFixed(2)}</td>
                         <td class="px-6 py-5 font-bold text-gray-700">฿${(p.budget / 1000000).toFixed(2)}M</td>
                         <td class="px-6 py-5">
                             <div class="flex items-center gap-3">
