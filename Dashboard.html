@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEA Project Dashboard - แผนงานที่ 3 (คพจ.2)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700;800&display=swap');
+        
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #F8F9FD;
+        }
+
+        .pea-purple { color: #7C3AED; }
+        .bg-pea-purple { background-color: #7C3AED; }
+        .pea-orange { color: #F97316; }
+        
+        .card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(124, 58, 237, 0.05);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Top Navbar -->
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-pea-purple rounded-lg flex items-center justify-center text-white">
+                    <i data-lucide="zap" fill="currentColor"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-purple-900 leading-tight tracking-tight">PEA DASHBOARD</h1>
+                    <p class="text-[10px] tracking-widest text-orange-500 font-bold uppercase">Engineering Service Division</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-6">
+                <div class="flex items-center gap-2 text-sm font-medium text-gray-600">
+                    <i data-lucide="activity" class="text-purple-600 w-4 h-4"></i>
+                    <span>สถานะระบบ: <span class="text-green-600">ออนไลน์</span></span>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold border border-purple-200">
+                    PE
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 mt-8">
+        <!-- Header Section -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+                <h2 class="text-2xl font-extrabold text-gray-900">สรุปภาพรวมแผนงานที่ 3 (คพจ.2)</h2>
+                <p class="text-gray-500">รายงานสถานะโครงการปรับปรุงระบบไฟฟ้าและงานลด Loss ในพื้นที่ กฟก.3</p>
+            </div>
+            <div class="flex gap-3">
+                <button class="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-all shadow-sm">
+                    <i data-lucide="filter" class="w-4 h-4"></i> ตัวกรอง
+                </button>
+                <button onclick="window.print()" class="flex items-center gap-2 bg-pea-purple text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-purple-800 transition-all shadow-lg shadow-purple-200">
+                    พิมพ์รายงาน
+                </button>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 bg-purple-50 rounded-2xl text-purple-700">
+                        <i data-lucide="wallet"></i>
+                    </div>
+                    <span class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-full">+4.2%</span>
+                </div>
+                <p class="text-gray-500 text-sm font-medium">งบประมาณรวมทั้งหมด</p>
+                <h3 id="total-budget" class="text-2xl font-bold mt-1 text-purple-900">฿0.00M</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 bg-orange-50 rounded-2xl text-orange-600">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <span class="text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-full">Overall</span>
+                </div>
+                <p class="text-gray-500 text-sm font-medium">ความคืบหน้าเฉลี่ย</p>
+                <h3 id="avg-progress" class="text-2xl font-bold mt-1 text-purple-900">0%</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 bg-blue-50 rounded-2xl text-blue-600">
+                        <i data-lucide="layout-dashboard"></i>
+                    </div>
+                </div>
+                <p class="text-gray-500 text-sm font-medium">โครงการที่ดำเนินการอยู่</p>
+                <h3 id="active-projects" class="text-2xl font-bold mt-1 text-purple-900">0</h3>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 bg-green-50 rounded-2xl text-green-600">
+                        <i data-lucide="check-circle-2"></i>
+                    </div>
+                </div>
+                <p class="text-gray-500 text-sm font-medium">โครงการที่เสร็จสิ้น</p>
+                <h3 id="completed-projects" class="text-2xl font-bold mt-1 text-purple-900">0</h3>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="lg:col-span-2 bg-white p-8 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex items-center justify-between mb-8">
+                    <h4 class="font-bold text-lg text-purple-900 flex items-center gap-2">
+                        <i data-lucide="zap" class="text-orange-500 w-5 h-5"></i> งบประมาณรายโครงการ (ล้านบาท)
+                    </h4>
+                </div>
+                <div class="chart-container">
+                    <canvas id="budgetChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-purple-800 to-indigo-900 p-8 rounded-3xl text-white flex flex-col justify-between overflow-hidden relative shadow-xl shadow-purple-200">
+                <div class="absolute top-[-20%] right-[-20%] w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                
+                <div>
+                    <p class="text-purple-200 text-sm font-medium mb-1">Status Overview</p>
+                    <h4 class="text-2xl font-bold mb-6">ความคืบหน้าภาพรวม</h4>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-xs mb-2 font-bold text-purple-100">
+                                <span>งานก่อสร้าง/ปรับปรุง</span>
+                                <span id="progress-text">0%</span>
+                            </div>
+                            <div class="w-full h-2 bg-white/20 rounded-full overflow-hidden">
+                                <div id="progress-bar" class="h-full bg-orange-500 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="bg-white/10 p-4 rounded-2xl border border-white/10">
+                                <p class="text-[10px] text-purple-200 font-bold uppercase tracking-wider mb-1">On Target</p>
+                                <p class="text-xl font-bold">4</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-2xl border border-white/10">
+                                <p class="text-[10px] text-purple-200 font-bold uppercase tracking-wider mb-1">Delayed</p>
+                                <p class="text-xl font-bold">1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex items-center justify-between">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 rounded-full border-2 border-purple-800 bg-purple-400 flex items-center justify-center text-[10px] font-bold text-white">U1</div>
+                        <div class="w-8 h-8 rounded-full border-2 border-purple-800 bg-purple-500 flex items-center justify-center text-[10px] font-bold text-white">U2</div>
+                        <div class="w-8 h-8 rounded-full border-2 border-purple-800 bg-purple-600 flex items-center justify-center text-[10px] font-bold text-white">U3</div>
+                    </div>
+                    <p class="text-xs font-medium text-purple-200 italic">เจ้าหน้าที่กำลังดำเนินการ</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="bg-white rounded-3xl card-shadow border border-gray-100 overflow-hidden mb-12">
+            <div class="p-6 border-b border-gray-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <h4 class="font-bold text-lg text-purple-900">รายการโครงการทั้งหมด</h4>
+                <div class="relative">
+                    <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        onkeyup="filterTable()"
+                        placeholder="ค้นหาชื่อหรือรหัส WBS..." 
+                        class="pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl text-sm w-full md:w-64 focus:ring-2 focus:ring-purple-500 transition-all outline-none"
+                    >
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left" id="projectTable">
+                    <thead>
+                        <tr class="bg-gray-50/50">
+                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">โครงการ / WBS ID</th>
+                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">ประเภทงาน</th>
+                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">งบประมาณ</th>
+                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider">ความคืบหน้า</th>
+                            <th class="px-6 py-4 text-[11px] font-bold text-gray-500 uppercase tracking-wider text-center">สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50" id="tableBody">
+                        <!-- Data will be populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-7xl mx-auto px-4 mt-12 py-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-xs font-medium">
+        <p>© 2024 Provincial Electricity Authority (PEA). All rights reserved.</p>
+        <div class="flex gap-6">
+            <a href="#" class="hover:text-purple-600 transition-colors">นโยบายระบบ</a>
+            <a href="#" class="hover:text-purple-600 transition-colors">ศูนย์ช่วยเหลือ</a>
+        </div>
+    </footer>
+
+    <script>
+        // Data from your spreadsheet
+        const rawData = [
+            { id: "P-TDD02.3-I-NPMIA.0021", name: "ปรับปรุงระบบไฟฟ้า ทล.3097 - ศูนย์ราชการนครปฐม", location: "กฟจ.นครปฐม", progress: 80, budget: 5420000, type: "เปลี่ยนขนาดสาย", status: "In Progress" },
+            { id: "P-TDD02.3-I-NPMIA.0022", name: "เชื่อมโยงแยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง ช่วงที่ 1", location: "กฟจ.นครปฐม", progress: 100, budget: 2830000, type: "เพิ่มวงจร 185 SAC", status: "Completed" },
+            { id: "P-TDD02.3-I-NPMIA.0023", name: "เชื่อมโยงแยกถนนไผ่ลิ้นช้าง - ป้อมนาสร้าง ช่วงที่ 2", location: "กฟจ.นครปฐม", progress: 80, budget: 3150000, type: "เพิ่มวงจร 185 SAC", status: "In Progress" },
+            { id: "P-TDD02.3-I-NPMIA.0025", name: "ปรับปรุงใต้แนวสายส่ง 115 เควี บ.เจนเนอรัล เบฟเวอร์เรจ", location: "กฟจ.นครปฐม", progress: 75, budget: 4200000, type: "ปรับปรุงระบบไฟฟ้า", status: "Warning" },
+            { id: "P-TDD02.3-I-NPMIA.0028", name: "งานแผนลด Loss ปี 66 พื้นที่ กฟก.3", location: "กฟก.3", progress: 90, budget: 12500000, type: "แผนลด Loss", status: "In Progress" }
+        ];
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Populate KPIs
+        const totalBudget = rawData.reduce((acc, curr) => acc + curr.budget, 0);
+        const avgProgress = Math.round(rawData.reduce((acc, curr) => acc + curr.progress, 0) / rawData.length);
+        const activeProjects = rawData.filter(p => p.progress < 100).length;
+        const completedProjects = rawData.filter(p => p.progress === 100).length;
+
+        document.getElementById('total-budget').innerText = `฿${(totalBudget / 1000000).toFixed(2)}M`;
+        document.getElementById('avg-progress').innerText = `${avgProgress}%`;
+        document.getElementById('active-projects').innerText = activeProjects;
+        document.getElementById('completed-projects').innerText = completedProjects;
+        document.getElementById('progress-text').innerText = `${avgProgress}%`;
+        document.getElementById('progress-bar').style.width = `${avgProgress}%`;
+
+        // Render Chart
+        const ctx = document.getElementById('budgetChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: rawData.map(d => d.id.split('.').pop()),
+                datasets: [{
+                    label: 'งบประมาณ (ล้านบาท)',
+                    data: rawData.map(d => d.budget / 1000000),
+                    backgroundColor: rawData.map((_, i) => i === 4 ? '#7C3AED' : '#DDD6FE'),
+                    borderRadius: 8,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { display: false },
+                        ticks: { font: { family: 'Sarabun' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { family: 'Sarabun', weight: 'bold' } }
+                    }
+                }
+            }
+        });
+
+        // Populate Table
+        const tableBody = document.getElementById('tableBody');
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            data.forEach(p => {
+                const statusBadge = p.status === 'Completed' 
+                    ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-1 bg-green-50 text-green-600 rounded-full">Finished</span>`
+                    : p.status === 'Warning'
+                        ? `<span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-1 bg-red-50 text-red-600 rounded-full">Delayed</span>`
+                        : `<span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-1 bg-blue-50 text-blue-600 rounded-full">In Progress</span>`;
+
+                const row = `
+                    <tr class="hover:bg-purple-50/30 transition-colors group">
+                        <td class="px-6 py-5">
+                            <div class="flex flex-col">
+                                <span class="font-bold text-gray-900 text-sm group-hover:text-purple-700 transition-colors">${p.name}</span>
+                                <span class="text-xs text-gray-400 mt-1">${p.id} • ${p.location}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-5 font-semibold text-xs text-gray-500">${p.type}</td>
+                        <td class="px-6 py-5 font-bold text-gray-700">฿${(p.budget / 1000000).toFixed(2)}M</td>
+                        <td class="px-6 py-5">
+                            <div class="flex items-center gap-3">
+                                <div class="flex-1 w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full rounded-full ${p.progress === 100 ? 'bg-green-500' : 'bg-purple-500'}" style="width: ${p.progress}%"></div>
+                                </div>
+                                <span class="text-xs font-bold text-gray-600">${p.progress}%</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-5 text-center">${statusBadge}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        renderTable(rawData);
+
+        // Search Filter
+        function filterTable() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = rawData.filter(p => 
+                p.name.toLowerCase().includes(input) || 
+                p.id.toLowerCase().includes(input)
+            );
+            renderTable(filtered);
+        }
+    </script>
+</body>
+</html>
